@@ -1,6 +1,5 @@
 package com.example.social_media_app.ui.screens.posts
 
-import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.social_media_app.R
 import com.example.social_media_app.data.network.ResponseResult
 import com.example.social_media_app.databinding.FragmentHomeBinding
@@ -20,11 +20,9 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding =
-            DataBindingUtil.inflate(layoutInflater, R.layout.fragment_home, container, false)
+        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_home, container, false)
         binding.viewModel = viewModel
         return binding.root
     }
@@ -36,28 +34,22 @@ class HomeFragment : Fragment() {
 
     private fun retrievePostsList() {
         viewModel.retrievePosts()
-        binding.loading.visibility = View.VISIBLE
         viewModel.postsListResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is ResponseResult.Success -> {
                     val posts = it.data
-                    binding.postsRecycler.adapter = PostsAdapter(posts)
+                    binding.postsRecycler.adapter = PostsAdapter(posts, findNavController())
                     binding.loading.visibility = View.GONE
-
                 }
+
                 is ResponseResult.Failure -> {
                     Toast.makeText(
-                        requireContext(),
-                        "There is an error happen " + it.error,
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                        requireContext(), "There is an error happen " + it.error, Toast.LENGTH_SHORT
+                    ).show()
                     binding.loading.visibility = View.GONE
                 }
 
-                else -> {
-
-                }
+                else -> {}
             }
         }
 

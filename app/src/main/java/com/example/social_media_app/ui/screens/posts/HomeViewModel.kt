@@ -19,8 +19,9 @@ class HomeViewModel @Inject constructor(private val postsListUseCase: PostsListU
     val postsListResponse = _postsListResponse
 
     fun retrievePosts() {
-        viewModelScope.launch {
-            _postsListResponse.value = safeApiCall { postsListUseCase.getPostsList() }
-        }
+        if (_postsListResponse.value !is ResponseResult.Success)
+            viewModelScope.launch {
+                _postsListResponse.value = safeApiCall { postsListUseCase.getPostsList() }
+            }
     }
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Social-Media-App</string>
+    <string name="no_comments_found">No comments found</string>
 </resources>

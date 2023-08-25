@@ -9,6 +9,20 @@
         android:id="@+id/posts_list_fragment"
         android:name="com.example.social_media_app.ui.screens.posts.HomeFragment"
         tools:layout="@layout/fragment_home">
-
+        <action
+            android:id="@+id/action_from_home_to_details"
+            app:destination="@id/pos_details_fragment" />
     </fragment>
+
+
+    <fragment
+        android:id="@+id/pos_details_fragment"
+        android:name="com.example.social_media_app.ui.screens.post_details.PostDetailsFragment"
+        tools:layout="@layout/fragment_post_details">
+        <argument
+            android:name="post"
+            app:argType="com.example.social_media_app.domain.model.Post"
+            app:nullable="false" />
+    </fragment>
+
 </navigation>
