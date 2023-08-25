@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/posts_list_fragment"
-        android:name="com.example.social_media_app.ui.screens.posts.PostsListFragment"
-        tools:layout="@layout/fragment_posts_list">
+        android:name="com.example.social_media_app.ui.screens.posts.HomeFragment"
+        tools:layout="@layout/fragment_home">
 
     </fragment>
 </navigation>

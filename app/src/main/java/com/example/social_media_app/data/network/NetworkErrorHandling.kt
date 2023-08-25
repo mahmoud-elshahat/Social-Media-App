@@ -7,8 +7,7 @@ suspend inline fun <T> safeApiCall(
     crossinline body: suspend () -> T
 ): ResponseResult<T> {
     return try {
-        val data = withContext(Dispatchers.IO) {
-            body() }
+        val data = withContext(Dispatchers.IO) { body() }
         ResponseResult.Success(data)
     } catch (e: Exception) {
         ResponseResult.Failure(e)
